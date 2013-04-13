@@ -63,5 +63,11 @@
 	file_put_contents($myFile, $stringData);
 
 	echo 'Successfully updated'.' '. $JSON['update'];
+	
+	$jsonfile = file_get_contents('date.json');
+
+	$json = json_decode( $jsonfile ) ;
+
+	echo $json -> {'update'} ;
 
 ?>
