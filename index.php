@@ -64,5 +64,6 @@
 	fwrite($fh, $stringData);
 
 	fclose($fh);
+	echo 'Successfully updated'.' '. date ( "H:i:s");
 
 ?>
