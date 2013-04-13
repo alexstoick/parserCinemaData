@@ -59,11 +59,9 @@
 
 
 	$myFile = "date.json";
-	$fh = fopen($myFile, 'w') or die("can't open file");
 	$stringData = json_encode($JSON) ;
-	fwrite($fh, $stringData);
+	file_put_contents($myFile, $stringData);
 
-	fclose($fh);
-	echo 'Successfully updated'.' '. date ( "H:i:s");
+	echo 'Successfully updated'.' '. $JSON['update'];
 
 ?>
