@@ -55,6 +55,7 @@
 
 	$JSON =  array() ;
 	$JSON['movies'] = $json ;
+	$JSON['update'] = date ( "H:i:s") ;
 
 
 	$myFile = "date.json";
