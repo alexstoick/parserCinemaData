@@ -60,11 +60,11 @@
 
 	$myFile = "date.json";
 	$stringData = json_encode($JSON) ;
-	file_put_contents($myFile, $stringData);
+	file_put_contents($myFile, $stringData) or die ('123') ;
 
 	echo 'Successfully updated'.' '. $JSON['update'];
-	
-	$jsonfile = file_get_contents('date.json');
+
+	$jsonfile = file_get_contents('date.json') or die ( '2nd update') ;
 
 	$json = json_decode( $jsonfile ) ;
 
