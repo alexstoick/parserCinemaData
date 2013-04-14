@@ -62,7 +62,7 @@
 	$stringData = json_encode($JSON) ;
 	file_put_contents($myFile, $stringData) or die ('123') ;
 
-	echo 'Successfully updated'.' '. $JSON['update'];
+	echo 'Successfully updated'.' '. $JSON['update'].'<br>';
 
 	$jsonfile = file_get_contents('date.json') or die ( '2nd update') ;
 
