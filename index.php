@@ -58,13 +58,13 @@
 	$JSON['update'] = date ( "H:i:s") ;
 
 
-	$myFile = "www/date.json";
+	$myFile = "date.json";
 	$stringData = json_encode($JSON) ;
 	file_put_contents($myFile, $stringData) or die ('123') ;
 
 	echo 'Successfully updated'.' '. $JSON['update'].'<br>';
 
-	$jsonfile = file_get_contents('www/date.json') or die ( '2nd update') ;
+	$jsonfile = file_get_contents('date.json') or die ( '2nd update') ;
 
 	$json = json_decode( $jsonfile ) ;
 
