@@ -6,12 +6,9 @@
 		exit () ;
 	}
 
-
-	//44.419560, 26.1266510
-	$lat = 44.419560 ;
-	$lng = 26.1266510 ;
-
-	//http://maps.googleapis.com/maps/api/directions/json?origin=44.455245734355664%2C26.052256126969016&destination=44.419560%2C26.1266510&sensor=false
+	////44.419560, 26.1266510
+	$lat = $_GET['lat'] ;
+	$lng = $_GET['lng'] ;
 
 	$jsonFile = file_get_contents('places.json') ;
 
@@ -28,27 +25,30 @@
 		while ( $redo )
 		{
 			$redo = false ;
-			$url = "http://maps.googleapis.com/maps/api/directions/json?origin=".$lat."%2C".$lng."&destination=".$lat_cinema."%2C".$lng_cinema."&sensor=false" ;
+			$url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins=".$lat."%2C".$lng."&destinations=".$lat_cinema."%2C".$lng_cinema."&sensor=false" ;
 
 			$jsonFile = file_get_contents( $url ) ;
 			$decodedJson = json_decode( $jsonFile , true ) ;
 
-			if ( !isset ($decodedJson ['routes'][0]['legs'][0]['distance']['text'] ) )
+			if ( !isset ($decodedJson ['rows'][0]['elements'][0]['distance']['text'] ) )
 				$redo = true ;
 			else
-				$km = $decodedJson ['routes'][0]['legs'][0]['distance']['text'] ;
-			if ( ! isset( $decodedJson ['routes'][0]['legs'][0]['duration']['value'] ) )
+				$km = $decodedJson ['rows'][0]['elements'][0]['distance']['text'] ;
+			if ( ! isset( $decodedJson ['rows'][0]['elements'][0]['duration']['value'] ) )
 				$redo = true ;
 			else
-				$min = $decodedJson ['routes'][0]['legs'][0]['duration']['value'] ;
+				$min = $decodedJson ['rows'][0]['elements'][0]['duration']['value'] ;
 
 			if ( ! $redo )
 			{
 				array_push ( $cinemas , array("name"=>$cinema['name'] , "km" => $km , "min" => $min ) ) ;
 			}
-		}
 
+		}
 	}
 
-	var_dump ( $cinemas ) ;
+	$JSON = array ( ) ;
+	$JSON ['cinema'] = $cinemas ;
+
+	echo json_encode( $JSON ) ;
 ?>
