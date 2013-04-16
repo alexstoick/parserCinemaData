@@ -41,7 +41,7 @@
 
 			if ( ! $redo )
 			{
-				array_push ( $cinemas , array("name"=>$cinema['name'] , "km" => $km , "min" => $min ) ) ;
+				array_push ( $cinemas , array("name"=>$cinema['name'] , "km" => $km , "min" => $min , "lat_cinema" => $lat_cinema , "lng_cinema" => $lng_cinema ) ) ;
 			}
 
 		}
