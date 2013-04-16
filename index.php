@@ -4,6 +4,7 @@
 	$doc = phpQuery::newDocumentFile('http://www.cinemagia.ro/program-cinema/bucuresti/');
 
 	$json = array();
+	$cinemas = array();
 
 	foreach( $doc->find('.program_cinema_show') as $film )
 	{
@@ -46,10 +47,10 @@
 					$intrare = array( "titluEn" => $enTitle , "titluRo" => $roTitle , "cinema" => $cinemaName , "ora" => $ora,
 									"nota" => $nota , "gen" => $gen , "actori" => $actori , "regizor" => $regizor ) ;
 					array_push($json, $intrare) ;
-
 				}
 				$ora =substr($program,$nrOra*5,5);
 			}
+			array_push ( $cinemas , $cinemaName ) ;
 		}
 	}
 
@@ -62,12 +63,10 @@
 	$stringData = json_encode($JSON) ;
 	file_put_contents($myFile, $stringData) or die ('123') ;
 
-	echo 'Successfully updated'.' '. $JSON['update'].'<br>';
+	echo 'Successfully updated'.' '. $JSON['update'] ;
 
-	$jsonfile = file_get_contents('date.json') or die ( '2nd update') ;
+	$cinemas = array_unique($cinemas);
+	var_dump ( $cinemas ) ;
 
-	$json = json_decode( $jsonfile ) ;
-
-	echo $json -> {'update'} ;
 
 ?>
