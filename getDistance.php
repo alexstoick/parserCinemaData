@@ -27,7 +27,7 @@
 			$redo = false ;
 			$url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins=".$lat."%2C".$lng."&destinations=".$lat_cinema."%2C".$lng_cinema."&sensor=false" ;
 
-			$jsonFile = file_get_contents( $url ) ;
+			$jsonFile = @file_get_contents( $url ) ;
 			$decodedJson = json_decode( $jsonFile , true ) ;
 
 			if ( !isset ($decodedJson ['rows'][0]['elements'][0]['distance']['text'] ) )
