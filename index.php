@@ -39,8 +39,9 @@
 				$program = str_replace('dublat', '', $program);
 				$program = str_replace('3D' , '' , $program ) ;
 				$program = preg_replace('/\s+/', '', $program);
+				$program = str_replace ( 'Cumpără bilete' , '' , $program ) ;
+				$program = leave_only_numbers ( $program ) ;
 				$length  = strlen($program);
-
 				for($nrOra=0;$nrOra<$length/5-1;$nrOra++)
 				{
 					$ora =substr($program,$nrOra*5,5);
@@ -65,8 +66,21 @@
 
 	echo 'Successfully updated'.' '. $JSON['update'] ;
 
-	$cinemas = array_unique($cinemas);
-	var_dump ( $cinemas ) ;
 
+
+	function leave_only_numbers ( $string )
+	{
+		if ( is_numeric ( $string[0] ) )
+			return $string ;
+
+		$newString = "" ;
+		$length = strlen ( $string ) ;
+		for ( $i = 0 ; $i < $length ; ++ $i )
+			if ( ( '0' <= $string[$i] && $string[$i] <= '9' ) || $string[$i] == ':' )
+				$newString .= $string[$i] ;
+
+
+		return $newString ;
+	}
 
 ?>
