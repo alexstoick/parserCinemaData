@@ -1,3 +1,5 @@
+<html>
+<meta charset='utf-8'>
 <?php
 	require('phpQuery/phpQuery.php');
 
@@ -5,7 +7,6 @@
 
 	$json = array();
 	$cinemas = array();
-
 	foreach( $doc->find('.program_cinema_show') as $film )
 	{
 		$roTitle = pq($film)->find('.title_ro')->text() ;
@@ -27,7 +28,6 @@
 		foreach ( $cinematografe as $cinematograf )
 		{
 			$cinemaName = pq($cinematograf)->find('.theatre-link')->text() ;
-
 			$program = pq($cinematograf)->find('div:last') -> text ( );
 			if ( $program )
 			{
@@ -42,7 +42,8 @@
 				$program = str_replace ( 'Cumpără bilete' , '' , $program ) ;
 				$program = leave_only_numbers ( $program ) ;
 				$length  = strlen($program);
-				for($nrOra=0;$nrOra<$length/5-1;$nrOra++)
+
+				for($nrOra=0;$nrOra<$length/5;$nrOra++)
 				{
 					$ora =substr($program,$nrOra*5,5);
 					$intrare = array( "titluEn" => $enTitle , "titluRo" => $roTitle , "cinema" => $cinemaName , "ora" => $ora,
@@ -51,14 +52,13 @@
 				}
 				$ora =substr($program,$nrOra*5,5);
 			}
-			array_push ( $cinemas , $cinemaName ) ;
+			#array_push ( $cinemas , $cinemaName ) ;
 		}
 	}
 
 	$JSON =  array() ;
 	$JSON['movies'] = $json ;
 	$JSON['update'] = date ( "H:i:s") ;
-
 
 	$myFile = "date.json";
 	$stringData = json_encode($JSON) ;
@@ -84,3 +84,4 @@
 	}
 
 ?>
+</html>

@@ -27,24 +27,31 @@
 			$redo = false ;
 			$url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins=".$lat."%2C".$lng."&destinations=".$lat_cinema."%2C".$lng_cinema."&sensor=false" ;
 
-			$jsonFile = @file_get_contents( $url ) ;
-			$decodedJson = json_decode( $jsonFile , true ) ;
+			array_push ( $cinemas , array ( "lat" => $lat_cinema , "lng" => $lng_cinema , "name" => $cinema["name"]) ) ;
 
-			if ( !isset ($decodedJson ['rows'][0]['elements'][0]['distance']['text'] ) )
-				$redo = true ;
-			else
-				$km = $decodedJson ['rows'][0]['elements'][0]['distance']['text'] ;
-			if ( ! isset( $decodedJson ['rows'][0]['elements'][0]['duration']['value'] ) )
-				$redo = true ;
-			else
-				$min = $decodedJson ['rows'][0]['elements'][0]['duration']['value'] ;
+			// $jsonFile = @file_get_contents( $url ) ;
+			// $decodedJson = json_decode( $jsonFile , true ) ;
 
-			if ( ! $redo )
-			{
-				array_push ( $cinemas , array("name"=>$cinema['name'] , "km" => $km , "min" => $min , "lat_cinema" => $lat_cinema , "lng_cinema" => $lng_cinema ) ) ;
-			}
+			// if ( !isset ($decodedJson ['rows'][0]['elements'][0]['distance']['text'] ) )
+			// 	$redo = true ;
+			// else
+			// 	$km = $decodedJson ['rows'][0]['elements'][0]['distance']['text'] ;
+			// if ( ! isset( $decodedJson ['rows'][0]['elements'][0]['duration']['value'] ) )
+			// 	$redo = true ;
+			// else
+			// 	$min = $decodedJson ['rows'][0]['elements'][0]['duration']['value'] ;
+
+			// if ( ! $redo )
+			// {
+			// 	array_push ( $cinemas , array("name"=>$cinema['name'] , "km" => $km , "min" => $min , "lat_cinema" => $lat_cinema , "lng_cinema" => $lng_cinema ) ) ;
+			// }
 
 		}
+	}
+
+	foreach ( $cinemas as $cinema )
+	{
+		echo "'lat' =>".$cinema["lat"].", 'lng' => ".$cinema["lng"].", 'name' =>'".$cinema["name"]."' ,<br>";
 	}
 
 	$JSON = array ( ) ;
